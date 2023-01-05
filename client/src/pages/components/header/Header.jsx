@@ -13,8 +13,10 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import {  useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function Header({listMode}) {
+  const [destination, setDestination] = useState('')
   const [options, setOptions] = useState({ adult: 1, children: 0, room: 1, });
   const [openDate, setOpenDate] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
@@ -26,12 +28,17 @@ function Header({listMode}) {
       key: "selection",
     },
   ]);
+  const navigate = useNavigate()
   const handleOption = (name, type) => {
     setOptions( (prev) => {return {
         ...prev, 
         [name] : type ==="+" ? options[name] +1 : options[name] -1,
     }})
   }
+  const handleSearch = () => {
+    navigate("/hotels", {state: {destination , date, options}})
+  }
+  
 
   return (
     <div className="header">
@@ -73,6 +80,7 @@ function Header({listMode}) {
               type="text"
               placeholder="Where are you going?"
               className="headerSearchInput"
+              onChange={(e)=>{setDestination(e.target.value)}}
             />
           </div>
           <div className="headerSearchItem">
@@ -91,6 +99,7 @@ function Header({listMode}) {
                 moveRangeOnFirstSelection={false}
                 ranges={date}
                 className="date"
+                minDate = {new Date()}
               />
             )}
           </div>
@@ -130,7 +139,7 @@ function Header({listMode}) {
 }
           </div>
           <div className="headerSearchItem">
-            <button className="headerBtn">Search</button>
+            <button onClick = {()=>handleSearch()} className="headerBtn">Search</button>
           </div>
         </div>
         </>}
