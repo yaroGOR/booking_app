@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-
+const cors = require("cors")
 const authRouter = require("./routes/auth.js") 
 const hotelsRouter = require("./routes/hotels.js") 
 const roomsRouter = require("./routes/rooms.js") 
@@ -21,6 +21,7 @@ const connect = async () => {
 };
 
 //MIDDLEWARES 
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 

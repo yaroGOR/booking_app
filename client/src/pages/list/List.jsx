@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import "./list.css";
 import { DateRange } from "react-date-range";
 import SearchItem from "../components/searchItem/SearchItem";
+import useFetch from "../../hooks/useFetch";
+
 
 function List() {
   const location = useLocation();
@@ -14,6 +16,16 @@ function List() {
   const [date, setDate] = useState(location.state.date);
   const [options, setOptions] = useState(location.state.options);
   const [openDate, setOpenDate] = useState(false);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
+
+
+
+  const { data, loading, error, reFetch } = useFetch(`http://localhost:8800/hotels?city=${destination}&min=${min || 0}&max=${max|| 100000}&limit=5`)
+
+  const handleClick = () => {
+    reFetch()
+  }
 
   return (
     <div>
@@ -46,11 +58,11 @@ function List() {
               <div className="listOptions">
                 <div className="listOptionItem">
                   Min price <small> per night </small>
-                  <input type="number" className="listOptionInput" />
+                  <input onChange={e=>setMin(e.target.value)} type="number" className="listOptionInput" />
                 </div>
                 <div className="listOptionItem">
                   Max price <small> per night </small>
-                  <input type="number" className="listOptionInput" />
+                  <input onChange={e=>setMax(e.target.value)} type="number" className="listOptionInput" />
                 </div>
                 <div className="listOptionItem">
                   Adult
@@ -81,12 +93,21 @@ function List() {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem/>
-            <SearchItem/>
-            <SearchItem/>
+            {loading ? "loading" : <>
+            {Array.isArray(data) ? 
+            data.map((item, index) => {
+              return (
+              <SearchItem key={index} item={item}/>
+              )
+            }
+            ) : null}
+            
+            
+            </>}
+           
           </div>
         </div>
       </div>
