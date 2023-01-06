@@ -8,7 +8,8 @@ const createError = require("./error")
     return next(createError(401, "You are not authenticated!"));
   }
 
-  jwt.verify(token, process.env.JWT, (err, user) => {
+  jwt.verify(token, process.env.JWT_KEY, (err, user) => {
+    console.log(err)
     if (err) return next(createError(403, "Token is not valid!"));
     req.user = user;
     next();
