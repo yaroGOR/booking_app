@@ -1,0 +1,51 @@
+import { createContext, useEffect, useReducer } from "react";
+
+const currentDate = new Date();
+
+const INITIAL_STATE = {
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  loading: false,
+  error: null,
+};
+
+export const AuthContext = createContext(INITIAL_STATE);
+
+const SearchReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN_START":
+      return { user: null, loading: true, error: null };
+    case "LOGIN_SUCCESS":
+      return { user: action.payload, loading: false, error: null };
+    case "LOGIN_FAILURE":
+      return { user: null, loading: false, error: action.payload };
+    case "LOGOUT":
+      return { user: null, loading: false, error: null };
+    case "RESET_SEARCH":
+      return INITIAL_STATE;
+    default:
+      return;
+  }
+};
+
+export const AuthContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(SearchReducer, INITIAL_STATE);
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(state.user))
+  
+    
+  }, [state.user])
+  
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        loading: state.loading,
+        error: state.error,
+        dispatch,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};

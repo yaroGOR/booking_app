@@ -12,11 +12,13 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { SearchContext } from "../../../context/SearchContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 function Header({listMode}) {
-  const [destination, setDestination] = useState('')
+  const [destination, setDestination] = useState('Kyiv')
   const [options, setOptions] = useState({ adult: 1, children: 0, room: 1, });
   const [openDate, setOpenDate] = useState(false);
   const [openOptions, setOpenOptions] = useState(false);
@@ -28,6 +30,9 @@ function Header({listMode}) {
       key: "selection",
     },
   ]);
+
+
+
   const navigate = useNavigate()
   const handleOption = (name, type) => {
     setOptions( (prev) => {return {
@@ -35,9 +40,17 @@ function Header({listMode}) {
         [name] : type ==="+" ? options[name] +1 : options[name] -1,
     }})
   }
+
+  const {dispatch} = useContext(SearchContext)
+
+
   const handleSearch = () => {
+    dispatch({type:"NEW_SEARCH", payload:{ destination , date, options}})
     navigate("/hotels", {state: {destination , date, options}})
   }
+
+  const {user} = useContext(AuthContext)
+
   
 
   return (
@@ -71,8 +84,7 @@ function Header({listMode}) {
           Get rewarded for your travels – unlock instant savings of 10% or more
           with a free Lamabooking account
         </p>
-        <button className="headerBtn">Sign in / Register</button>
-
+        { user && <button className="headerBtn">Sign in / Register</button>}
         <div className="headerSearch">
           <div className="headerSearchItem">
             <FontAwesomeIcon icon={faBed} className="headerIcon" />
