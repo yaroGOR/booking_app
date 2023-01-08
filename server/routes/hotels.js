@@ -1,5 +1,5 @@
 const express = require("express");
-const { createHotel, updateHotel, deleteHotel, getHotel, getAllHotels, countByCity, countByType } = require("../controllers/hotelController");
+const { createHotel, updateHotel, deleteHotel, getHotel, getAllHotels, countByCity, countByType, getHotelRooms } = require("../controllers/hotelController");
 const { verifyAdmin } = require("../utils/verifyToken");
 
 const router = express.Router();
@@ -20,6 +20,7 @@ router.get("/find/:id", getHotel)
 router.get("/", getAllHotels)
 router.get("/countByCity", countByCity)
 router.get("/countByType", countByType)
+router.get("/room/:id", getHotelRooms)
 
 
 
