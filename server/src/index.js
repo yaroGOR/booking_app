@@ -1,5 +1,5 @@
 const express = require("express");
-const serverless = require("serverless-http")
+//const serverless = require("serverless-http")
 
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -25,7 +25,8 @@ const connect = async () => {
     throw error;
   }
 };
-const netlify_path = "/.netlify/functions/api"
+const netlify_path = ""
+// /.netlify/functions/api
 
 //MIDDLEWARES 
 app.use(express.json())
@@ -59,4 +60,4 @@ app.listen(process.envPORT || 8800, () => {
   console.log("Listening to server");
 });
 
-module.exports.handler = serverless(app)
+//module.exports.handler = serverless(app)
