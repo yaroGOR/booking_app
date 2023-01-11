@@ -12,8 +12,7 @@ const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
+      ...req.body,
       password: hashPassword,
     });
 
@@ -41,13 +40,20 @@ const login = async (req, res, next) => {
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_KEY
     );
+    console.log(process.env.JWT_KEY)
     console.log(token);
     const { password, isAdmin, ...otherDetails } = user._doc;
+    res.cookie("access_token", token, {httpOnly: true, path:"/"}).status(200)
+      .json({ details:{...otherDetails}, isAdmin });
+      console.log(res)
+      console.log(res.set_cookie)
+    //  res.setHeader('Set-Cookie', `access_token=${token}`)
 
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .json({ ...otherDetails });
+    //  .cookie("access_token", token, { httpOnly: false })
+
+
+
+      console.log(res.cookie.access_token)
   } catch (err) {
     next(err);
   }

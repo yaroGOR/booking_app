@@ -21,9 +21,10 @@ const connect = async () => {
 };
 
 //MIDDLEWARES 
+app.use(express.json())
+
 app.use(cors())
 app.use(cookieParser())
-app.use(express.json())
 
 app.use("/auth", authRouter)
 app.use("/hotels", hotelsRouter)

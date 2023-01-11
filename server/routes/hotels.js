@@ -6,13 +6,13 @@ const router = express.Router();
 
 //CREATE
 
-router.post("/", verifyAdmin, createHotel)
+router.post("/", createHotel) //admin
 
 //UPDATE
-router.put("/:id", verifyAdmin, updateHotel)
+router.put("/:id", updateHotel) //admin
 
 //DELETE
-router.delete("/:id", verifyAdmin, deleteHotel)
+router.delete("/:id", deleteHotel) //admin
 
 //GET
 router.get("/find/:id", getHotel)

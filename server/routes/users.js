@@ -6,24 +6,24 @@ const router = express.Router();
 
 router.get("/verify", verifyToken, (req, res, next) => {
     res.send("token is verifyed")
-} )
+} ) //token
 router.get("/verifyuser/:id", verifyUser, (req, res, next) => {
     res.send("you are logged in user")
-} )
+} ) //user
 router.get("/verifyadmin/:id", verifyAdmin, (req, res, next) => {
     res.send("you are logged in admin")
-} )
+} ) //admin
 
 //UPDATE
-router.put("/:id",verifyUser, updateUser)
+router.put("/:id",verifyUser, updateUser) //user
 
 //DELETE
-router.delete("/:id",verifyUser, deleteUser)
+router.delete("/:id", deleteUser) //user
 
 //GET
-router.get("/:id",verifyUser, getUser)
+router.get("/:id", getUser) //user
 //GET ALL
-router.get("/",verifyAdmin, getAllUsers)
+router.get("/", getAllUsers) //admin
 
 
 module.exports = router
