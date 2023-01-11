@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "netlify": "./node_modules/.bin/netlify-lambda serve src",
-    "netlify_build": "./node_modules/.bin/netlify-lambda build src",
+    "deploy_start": "node ./src/index.js",
+    "deploy_build": "node ./src/index.js",
     "start": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
