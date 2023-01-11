@@ -1,4 +1,6 @@
 const express = require("express");
+const serverless = require("serverless-http")
+
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors")
@@ -10,15 +12,18 @@ const  cookieParser =require( "cookie-parser")
 
 const app = express();
 
+
+
 dotenv.config();
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL).then(console.log("connected to db"));
+    await mongoose.connect(process.env.MONGO_URL).then(console.log("Connected to MongoDB"));
     
   } catch (error) {
     throw error;
   }
 };
+const netlify_path = "/.netlify/functions/api"
 
 //MIDDLEWARES 
 app.use(express.json())
@@ -26,10 +31,10 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
-app.use("/auth", authRouter)
-app.use("/hotels", hotelsRouter)
-app.use("/rooms", roomsRouter)
-app.use("/users", usersRouter)
+app.use(netlify_path+"/auth", authRouter)
+app.use(netlify_path+"/hotels", hotelsRouter)
+app.use(netlify_path+"/rooms", roomsRouter)
+app.use(netlify_path+"/users", usersRouter)
 
 app.use((err, req, res, next)=> {
     const errorStatus = err.status || 500
@@ -49,5 +54,6 @@ app.use((err, req, res, next)=> {
 
 app.listen(8800, () => {
     connect()
-  console.log("connected to backend");
+  console.log("Listening to server");
 });
+module.exports.handler = serverless(app)
