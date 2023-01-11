@@ -10,6 +10,8 @@ const roomsRouter = require("./routes/rooms.js")
 const usersRouter = require("./routes/users.js") 
 const  cookieParser =require( "cookie-parser")
 
+
+
 const app = express();
 
 
@@ -52,8 +54,9 @@ app.use((err, req, res, next)=> {
 
 
 
-app.listen(8800, () => {
+app.listen(process.envPORT || 8800, () => {
     connect()
   console.log("Listening to server");
 });
+
 module.exports.handler = serverless(app)
