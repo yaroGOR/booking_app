@@ -43,6 +43,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8800"
+  "proxy": "https://booking-server-backend.onrender.com"
 
 }
