@@ -26,7 +26,7 @@ const Hotel = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const { data, loading, error } = useFetch(
-    `/hotels/find/${id}`
+    `/api/hotels/find/${id}`
   );
 
   const { date , options } = useContext(SearchContext);

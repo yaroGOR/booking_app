@@ -17,7 +17,9 @@ function Navbar() {
             
             {user ? user.username : <div className="navItems">
                 <button className="navButton">register</button>
+                <Link to="/login" style = {{textDecoration:"none"}}>
                 <button className="navButton">Login</button>
+                </Link>
             </div>}
         </div>
     </div>

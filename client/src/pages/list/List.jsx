@@ -21,7 +21,7 @@ function List() {
 
 
 
-  const { data, loading, error, reFetch } = useFetch(`/hotels?city=${destination}&min=${min || 0}&max=${max|| 100000}&limit=5`)
+  const { data, loading, error, reFetch } = useFetch(`/api/hotels?city=${destination}&min=${min || 0}&max=${max|| 100000}&limit=5`)
 
   const handleClick = () => {
     reFetch()

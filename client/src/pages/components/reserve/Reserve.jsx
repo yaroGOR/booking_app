@@ -12,7 +12,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const { date } = useContext(SearchContext);
   const navigate = useNavigate()
   const { data, loading, error } = useFetch(
-    `/hotels/room/${hotelId}`
+    `/api/hotels/room/${hotelId}`
   );
 
   const getDatesInRange = (startDate, endDate) => {
