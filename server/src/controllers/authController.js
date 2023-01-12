@@ -40,7 +40,6 @@ const login = async (req, res, next) => {
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_KEY
     );
-    console.log(process.env.JWT_KEY)
     console.log(token);
     const { password, isAdmin, ...otherDetails } = user._doc;
     res.cookie("access_token", token, {httpOnly: true, path:"/"}).status(200)
