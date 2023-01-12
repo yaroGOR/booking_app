@@ -12,7 +12,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const { date } = useContext(SearchContext);
   const navigate = useNavigate()
   const { data, loading, error } = useFetch(
-    `http://localhost:8800/hotels/room/${hotelId}`
+    `/hotels/room/${hotelId}`
   );
 
   const getDatesInRange = (startDate, endDate) => {
@@ -53,7 +53,7 @@ const Reserve = ({ setOpen, hotelId }) => {
       await Promise.all(
         selectedRooms.map((roomId) => {
           const res = axios.put(
-            `http://localhost:8800/rooms/aviability/${roomId}`,
+            `/rooms/aviability/${roomId}`,
             { dates: allDates }
           );
           console.log(res.data);

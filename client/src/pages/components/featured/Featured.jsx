@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const Featured = () => {
   const { data, loading, error } = useFetch(
-    "http://localhost:8800/hotels/countByCity?cities=Berlin,Kyiv,Lviv"
+    "/hotels/countByCity?cities=Berlin,Kyiv,Lviv"
   );
   
   return (
