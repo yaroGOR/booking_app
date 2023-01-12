@@ -11,7 +11,7 @@ const Datatable = ({columns}) => {
   console.log(document.cookie);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const dataReq = `http://localhost:8800/${path}`;
+  const dataReq = `/api/${path}`;
   console.log(dataReq);
   const { data, loading, err } = useFetch(dataReq);
 
@@ -32,7 +32,7 @@ const Datatable = ({columns}) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8800/${path}/${id}`);
+      await axios.delete(`/api/${path}/${id}`);
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };

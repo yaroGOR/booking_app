@@ -32,7 +32,7 @@ const New = ({inputs, title}) => {
       }
       console.log(newUser)
 
-      await axios.post("http://localhost:8800/auth/register", newUser)
+      await axios.post("/api/auth/register", newUser)
     }catch(err) {
       console.log(err)
     }
