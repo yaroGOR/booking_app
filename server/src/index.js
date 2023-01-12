@@ -25,7 +25,7 @@ const connect = async () => {
     throw error;
   }
 };
-const netlify_path = ""
+const netlify_path = "/api"
 // /.netlify/functions/api
 
 //MIDDLEWARES 
@@ -34,10 +34,10 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
-app.use(netlify_path+"/auth", authRouter)
-app.use(netlify_path+"/hotels", hotelsRouter)
-app.use(netlify_path+"/rooms", roomsRouter)
-app.use(netlify_path+"/users", usersRouter)
+app.use(netlify_path.concat("/auth"), authRouter)
+app.use(netlify_path.concat("/hotels"), hotelsRouter)
+app.use(netlify_path.concat("/rooms"), roomsRouter)
+app.use(netlify_path.concat("/users"), usersRouter)
 
 app.use((err, req, res, next)=> {
     const errorStatus = err.status || 500
