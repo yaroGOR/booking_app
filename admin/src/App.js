@@ -75,7 +75,7 @@ const App = () => {
                 }
               />
               <Route
-                path=":productId"
+                path=":hotelId"
                 element={
                   <ProtectedRoot>
                     <Single />
@@ -86,11 +86,11 @@ const App = () => {
                 path="new"
                 element={
                   <ProtectedRoot>
-                    {" "}
                     <New inputs={hotelInputs} title={"Add new hotel"} />
                   </ProtectedRoot>
                 }
               />
+              
             </Route>
           </Route>
         </Routes>

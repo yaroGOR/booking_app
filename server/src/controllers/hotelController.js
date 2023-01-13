@@ -41,10 +41,10 @@ const getHotel = async (req, res,next)=>{
     }
 }
 const getAllHotels = async (req, res, next )=>{
-    const {min, max, ...others} = req.query 
-
+    const {min, max,...others} = req.query 
+    
     try{
-        const hotels = await Hotel.find({...others, cheapestPrice:{$gt:min || 1, $lt:max || 9999999}}).limit(req.query.limit)
+       const hotels = await Hotel.find({...others, cheapestPrice:{$gt:min || 1, $lt:max || 9999999}}).limit(req.query.limit)
         res.status(200).json(hotels)
 
     } catch(err){
@@ -99,8 +99,19 @@ const countByType = async (req, res, next )=>{
         }
 
     }
+    const findByType = async (req, res, next )=>{
+            
+        try{
+            const type = req.body.type
+            const hotels =await Hotel.where({type})
+            res.status(200).json(hotels)
+        } catch(err){
+            next(err)
+        }
+    
+        }
 
 
 
 
-module.exports = {createHotel, updateHotel, deleteHotel, getAllHotels, getHotel, countByCity, countByType, getHotelRooms}
+module.exports = {createHotel, updateHotel, deleteHotel, getAllHotels, getHotel, countByCity, countByType, getHotelRooms, findByType}

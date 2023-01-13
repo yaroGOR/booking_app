@@ -1,17 +1,17 @@
 import "./reserve.css";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import useFetch from "../../../hooks/useFetch";
-import { useLocation, useNavigate } from "react-router-dom";
-import { SearchContext } from "../../../context/SearchContext";
+import useFetch from "../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { date } = useContext(SearchContext);
   const navigate = useNavigate()
-  const { data, loading, error } = useFetch(
+  const { data, loading } = useFetch(
     `/api/hotels/room/${hotelId}`
   );
 
@@ -33,7 +33,7 @@ const Reserve = ({ setOpen, hotelId }) => {
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates?.some((date) => {
-      allDates.includes(new Date(date).getTime());
+       return allDates.includes(new Date(date).getTime());
     });
     return !isFound;
   };

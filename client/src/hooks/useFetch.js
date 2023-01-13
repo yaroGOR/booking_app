@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import defineBackendURL from "../adress";
 const useFetch =  (url) => {
 
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const proxy = defineBackendURL()
+  url = proxy.concat(url)
 
   const fetchData = async () => {
     await setLoading(true);
-    url = "https://booking-server-backend.onrender.com".concat(url)
 
    try {
      const res = await axios.get(url);
@@ -33,7 +33,6 @@ const useFetch =  (url) => {
   }
   setLoading(false);
 };
-
 
   useEffect(() => {
     fetchData();

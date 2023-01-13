@@ -9,6 +9,7 @@ const DarkModeReducer = (state, action) => {
             return {
             darkMode: true}
         }
+       
         case "TOGGLE": {
             return{
                 darkMode: !state.darkMode

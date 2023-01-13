@@ -10,7 +10,6 @@
     flex:1;
     border-radius: 10px;
     overflow: hidden;
-    cursor: pointer;
   }
   
   .pListImg{
@@ -28,4 +27,10 @@
   .pListTitles>h2{
     font-size: 14px;
     font-weight: 300;
+    color:darkgray;
+  }
+
+  a {
+    text-decoration: none;
+    color:gray;
   }

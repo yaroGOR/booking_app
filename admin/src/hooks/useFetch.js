@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import defineBackendURL from "../adress";
 const useFetch =  (url) => {
-  url = "https://booking-server-backend.onrender.com".concat(url)
-
+  const proxy = defineBackendURL()
+  url = proxy.concat(url)
 
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);

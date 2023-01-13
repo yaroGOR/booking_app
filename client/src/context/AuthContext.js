@@ -1,6 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
 
-const currentDate = new Date();
 
 const INITIAL_STATE = {
   user: JSON.parse(localStorage.getItem("user")) || null,

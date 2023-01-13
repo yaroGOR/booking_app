@@ -1,6 +1,8 @@
 import "./searchItem.css";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+
+
 const SearchItem = (props) => {
   useEffect(() => console.log(props), [props]);
   const item = props.item;

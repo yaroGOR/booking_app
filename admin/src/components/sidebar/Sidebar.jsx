@@ -47,7 +47,7 @@ const Sidebar = () => {
             <span>Users</span>
           </li>
           </Link>
-          <Link to="/products" style ={{textDecoration:"none"}}>
+          <Link to="/hotels" style ={{textDecoration:"none"}}>
 
           <li>
             <CategoryIcon className="icon"/>
@@ -100,9 +100,6 @@ const Sidebar = () => {
       <div className="bottom">
         <div className="colorOption" onClick ={()=>dispatch({type:"LIGHT"})}></div>
         <div className="colorOption" onClick ={()=>dispatch({type:"DARK"})}></div>
-        <div className="colorOption" ></div>
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
 
       </div>
     </div>

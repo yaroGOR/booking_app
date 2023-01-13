@@ -1,8 +1,8 @@
 import "./hotel.css";
-import Navbar from "../components/navbar/Navbar";
-import Header from "../components/header/Header";
-import MailList from "../components/mailList/MailList";
-import Footer from "../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
+import MailList from "../../components/mailList/MailList";
+import Footer from "../../components/footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleArrowLeft,
@@ -14,9 +14,9 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
-import { parseWithOptions } from "date-fns/fp";
 import { AuthContext } from "../../context/AuthContext";
-import Reserve from "../components/reserve/Reserve";
+import Reserve from "../../components/reserve/Reserve";
+import SkeletonLoading from "../../components/skeleton/SkeletonLoading";
 
 const Hotel = () => {
   const location = useLocation();
@@ -25,23 +25,19 @@ const Hotel = () => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const { data, loading, error } = useFetch(
-    `/api/hotels/find/${id}`
-  );
+  const { data, loading } = useFetch(`/api/hotels/find/${id}`);
 
-  const { date , options } = useContext(SearchContext);
-    const {user} = useContext(AuthContext)
-    const navigate = useNavigate()
-function dayDiffecence(date1, date2) {
-  const MILLISECONDS_PER_DAY=1000*60*60*24
+  const { date, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  function dayDiffecence(date1, date2) {
+    const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
-
-
-  const timeDiff = Math.abs(date2.getTime()-date1.getTime());
-  const dayDiff = Math.ceil(timeDiff / MILLISECONDS_PER_DAY)
-  return dayDiff
-}
-const days = dayDiffecence(date[0].endDate, date[0].startDate)
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const dayDiff = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return dayDiff;
+  }
+  const days = dayDiffecence(date[0].endDate, date[0].startDate);
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -60,21 +56,18 @@ const days = dayDiffecence(date[0].endDate, date[0].startDate)
     setSlideNumber(newSlideNumber);
   };
 
-  const handleClick =() => {
-    if(user) {
-
-      setOpenModal(true)
-
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
     } else {
-      navigate("/login")
-
+      navigate("/login");
     }
-  }
+  };
 
   return (
     <div>
       {loading ? (
-        "Loading"
+        <SkeletonLoading />
       ) : (
         <>
           <Navbar />
@@ -93,7 +86,11 @@ const days = dayDiffecence(date[0].endDate, date[0].startDate)
                   onClick={() => handleMove("l")}
                 />
                 <div className="sliderWrapper">
-                  <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
+                  <img
+                    src={data.photos[slideNumber]}
+                    alt=""
+                    className="sliderImg"
+                  />
                 </div>
                 <FontAwesomeIcon
                   icon={faCircleArrowRight}
@@ -103,7 +100,6 @@ const days = dayDiffecence(date[0].endDate, date[0].startDate)
               </div>
             )}
             <div className="hotelWrapper">
-              <button className="bookNow">Reserve or Book Now!</button>
               <h1 className="hotelTitle">{data.name}</h1>
               <div className="hotelAddress">
                 <FontAwesomeIcon icon={faLocationDot} />
@@ -140,9 +136,10 @@ const days = dayDiffecence(date[0].endDate, date[0].startDate)
                     excellent location score of 9.8!
                   </span>
                   <h2>
-                    <b>${days*data.cheapestPrice*options.room}</b> ({days} nights)
+                    <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                    nights)
                   </h2>
-                  <button onClick ={ handleClick }>Reserve or Book Now!</button>
+                  <button onClick={handleClick}>Reserve or Book Now!</button>
                 </div>
               </div>
             </div>
@@ -151,7 +148,7 @@ const days = dayDiffecence(date[0].endDate, date[0].startDate)
           </div>
         </>
       )}
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 };

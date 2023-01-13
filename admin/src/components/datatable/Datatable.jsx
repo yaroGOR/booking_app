@@ -64,7 +64,7 @@ const Datatable = ({columns}) => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New `{path}`
+        Add New {path}
         <Link
           to={`/${path}/new`}
           style={{ textDecoration: "none" }}

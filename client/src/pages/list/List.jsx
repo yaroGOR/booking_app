@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar";
+import Header from "../../components/header/Header";
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 import { format } from "date-fns";
 
 import "./list.css";
 import { DateRange } from "react-date-range";
-import SearchItem from "../components/searchItem/SearchItem";
+import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
+import SkeletonLoading from "../../components/skeleton/SkeletonLoading";
 
 
 function List() {
   const location = useLocation();
-  const [destination, setDestination] = useState(location.state.destination);
+  console.log(location)
+  const [destination] = useState(location.state.destination);
   const [date, setDate] = useState(location.state.date);
-  const [options, setOptions] = useState(location.state.options);
+  const [options] = useState(location.state.options);
   const [openDate, setOpenDate] = useState(false);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
 
-
-  const { data, loading, error, reFetch } = useFetch(`/api/hotels?city=${destination}&min=${min || 0}&max=${max|| 100000}&limit=5`)
+  const { data, loading, reFetch } = useFetch(`/api/hotels?city=${destination||"Berlin"}&min=${min || 0}&max=${max|| 100000}&limit=5`)
 
   const handleClick = () => {
     reFetch()
@@ -96,7 +98,7 @@ function List() {
             <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            {loading ? "loading" : <>
+            {loading ? (<SkeletonLoading/>) : <>
             {Array.isArray(data) ? 
             data.map((item, index) => {
               return (
@@ -110,7 +112,10 @@ function List() {
            
           </div>
         </div>
+        <Footer/>
       </div>
+
+
     </div>
   );
 }
