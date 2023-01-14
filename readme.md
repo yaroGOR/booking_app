@@ -1,5 +1,3 @@
-# Booking project [readme.md](http://readme.md)
-
 Hi, my name is Yaroslav, and I’m glad to introduce you my first frontend + backend pet project. 
 
 This application consists of three parts: Client, Booking app is in client. folder, Backend is in server folder, and another client, literally an admin panel or dashboard is in admin folder. 
@@ -54,4 +52,14 @@ or
 npm install
 ```
 
-then you can start the project with
+then you can start the project with 
+
+```jsx
+npm start
+```
+
+also to use your local server you may need to change in admin/src/adress.js and client/src/adress.js
+
+```jsx
+production = false
+```
